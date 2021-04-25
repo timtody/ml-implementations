@@ -7,7 +7,7 @@ export default function FirstPost() {
       <Head>
         <title>Kussi !!!</title>
       </Head>
-      Brah
+      KUSSI!!!!!!
     </Layout>
   );
 }
