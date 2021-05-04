@@ -1,31 +1,20 @@
 import fs from "fs";
 import { join } from "path";
-
-import Head from "next/head";
-import Link from "next/link";
-import Layout, { siteTitle } from "../components/layout";
-import _, { replace } from "lodash";
 import { parseMarkdown } from "../lib/markdownHandler";
 
-export default function Home({ posts }) {
+import Head from "next/head";
+import Layout, { siteTitle } from "../components/layout";
+import _, { replace } from "lodash";
+import SideBar from "../components/sidebar";
+
+export default function Home({ names }) {
   return (
     <Layout>
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <Link href="/posts/first-post">
-        <a>First Post!</a>
-      </Link>
-      {parseMarkdown("## BRAH\n*DUDE*")}
-      <ul>
-        {_.map(posts, (post, key) => {
-          return (
-            <div className="border-4 border-indigo-600">
-              {parseMarkdown(post)}
-            </div>
-          );
-        })}
-      </ul>
+      <SideBar>{names}</SideBar>
+      {parseMarkdown("# BRO")}
     </Layout>
   );
 }
@@ -35,6 +24,7 @@ export async function getStaticProps() {
   return {
     props: {
       posts,
+      names,
     },
   };
 }

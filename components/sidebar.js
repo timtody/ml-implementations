@@ -1,12 +1,14 @@
-export default function Sidebar() {
+import Link from "next/link";
+
+export default function Sidebar({ children, className }) {
   return (
-    <nav>
+    <nav className={className}>
       <ul>
-        <li>Nav Link</li>
-        <li>Nav Link</li>
-        <li>Nav Link</li>
-        <li>Nav Link</li>
-        <li>Nav Link</li>
+        {children?.map((child) => (
+          <li className="dark:text-indigo-50">
+            <Link href={child}>{child}</Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );
