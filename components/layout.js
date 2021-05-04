@@ -16,17 +16,17 @@ export default function Layout({ children, names }) {
         <title>{siteTitle}</title>
       </Head>
       <div className="sticky top-0 w-full flex flex-row mx-auto bg-white dark:bg-gray-700 lg:h-16">
-        <div className="text-3xl dark:bg-gray-700 lg:w-60 mt-2">
+        <div className="text-3xl dark:bg-gray-700 lg:w-60 mt-2 inline-flex items-center">
           <Link href="/">
             <a className="dark:text-indigo-50 align-middle">ML Gloss</a>
           </Link>
         </div>
         <div className="flex container lg:px-24 flex-1 mt-2">
           <input
-            className="dark:bg-gray-700 dark:text-indigo-200 w-full h-full border-b border-indigo-400 "
+            className="dark:bg-gray-700 dark:text-indigo-200 w-full h-full border-b dark:border-indigo-400 "
             value={`Quick search for anything...`}
           />
-          <div className="inline-flex items-center border-b border-indigo-400">
+          <div className="inline-flex items-center border-b dark:border-indigo-400">
             <a className="dark:text-indigo-50">GitHub</a>
           </div>
         </div>
