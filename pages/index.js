@@ -5,15 +5,13 @@ import { parseMarkdown } from "../lib/markdownHandler";
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
 import _, { replace } from "lodash";
-import SideBar from "../components/sidebar";
 
 export default function Home({ names }) {
   return (
-    <Layout>
+    <Layout names={names}>
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <SideBar>{names}</SideBar>
       {parseMarkdown("# BRO")}
     </Layout>
   );

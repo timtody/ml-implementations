@@ -15,14 +15,22 @@ export default function Layout({ children, names }) {
         <meta name="og:title" content={siteTitle} />
         <title>{siteTitle}</title>
       </Head>
-      <header className="sticky top-0 w-full flex flex-row mx-auto bg-white dark:bg-gray-700">
-        <div className="text-3xl dark:bg-gray-700">
+      <div className="sticky top-0 w-full flex flex-row mx-auto bg-white dark:bg-gray-700 lg:h-16">
+        <div className="text-3xl dark:bg-gray-700 lg:w-60 mt-2">
           <Link href="/">
-            <a className="dark:text-indigo-50">ML Gloss</a>
+            <a className="dark:text-indigo-50 align-middle">ML Gloss</a>
           </Link>
         </div>
-        <input className="border border-indigo-600 rounded-md w-full dark:bg-gray-700"></input>
-      </header>
+        <div className="flex container lg:px-24 flex-1 mt-2">
+          <input
+            className="dark:bg-gray-700 dark:text-indigo-200 w-full h-full border-b border-indigo-400 "
+            value={`Quick search for anything...`}
+          />
+          <div className="inline-flex items-center border-b border-indigo-400">
+            <a className="dark:text-indigo-50">GitHub</a>
+          </div>
+        </div>
+      </div>
       <div className="md:flex justify-between">
         <SideBar className="lg:w-60 pt-10 mb-10 h-screen overflow-y-scroll">
           {names}
