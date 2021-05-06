@@ -16,12 +16,17 @@
     "rehype-katex": "^5.0.0",
     "rehype-react": "^6.2.0",
     "remark": "^13.0.0",
+    "remark-extract-frontmatter": "^3.1.0",
+    "remark-frontmatter": "^3.0.0",
     "remark-math": "^4.0.0",
     "remark-parse": "^9.0.0",
     "remark-react": "^8.0.0",
     "remark-rehype": "^8.1.0",
+    "remark-stringify": "^9.0.1",
     "styled-components": "^5.2.3",
-    "unified": "^9.2.1"
+    "toml": "^3.0.0",
+    "unified": "^9.2.1",
+    "yaml": "^1.10.2"
   },
   "devDependencies": {
     "@types/node": "^14.14.41",

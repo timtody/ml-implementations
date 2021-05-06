@@ -4,19 +4,29 @@ import fs from "fs";
 import { zipObject } from "lodash";
 
 import Layout from "../components/layout";
-import { parseMarkdown } from "../lib/markdownHandler";
+import { parseMarkdown, parseFrontMatter } from "../lib/markdownHandler";
 
 export default function Page({ content, names }) {
   return (
+    // TODO: let the layout get its own props...
     <Layout names={names}>
-      <div>{parseMarkdown(content)}</div>
+      <div>{parseMarkdown(content.content)}</div>
     </Layout>
   );
 }
 
 export async function getStaticProps(context) {
   const [contents, names] = getAllPostsAndNames();
-  const posts = zipObject(names, contents);
+  //const posts = zipObject(names, contents);
+
+  var posts = {};
+  for (var i = 0; i < contents.length; i++) {
+    const content = contents[i];
+    posts[names[i]] = {
+      content,
+      ...parseFrontMatter(content),
+    };
+  }
   return {
     props: { content: posts[context.params.slug], names },
   };
