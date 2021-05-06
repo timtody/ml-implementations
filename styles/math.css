@@ -1,1 +1,3 @@
 .katex {@apply dark:text-indigo-50}
+.frac-line {border-color: #000; @apply dark:border-indigo-50}
+

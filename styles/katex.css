@@ -292,6 +292,8 @@
     text-align: center;
   }
   .katex .mfrac .frac-line {
+    @apply text-black;
+    @apply dark:text-indigo-50;
     display: inline-block;
     width: 100%;
     border-bottom-style: solid;
