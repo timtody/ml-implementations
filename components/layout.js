@@ -24,7 +24,7 @@ export default function Layout({ children, names }) {
         <div className="flex container flex-1 mt-2 lg:pl-44">
           <input
             className="dark:bg-gray-700 dark:text-indigo-200 w-full h-full border-b dark:border-indigo-400 "
-            value={`Quick search for anything...`}
+            defaultValue={`Quick search for anything...`}
           />
           <div className="inline-flex items-center border-b dark:border-indigo-400">
             <a className="dark:text-indigo-50">GitHub</a>
