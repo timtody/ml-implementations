@@ -4,8 +4,8 @@ export default function Sidebar({ children, className }) {
   return (
     <nav className={className}>
       <ul>
-        {children?.map((child) => (
-          <li className="dark:text-indigo-50">
+        {children?.map((child, i) => (
+          <li className="dark:text-indigo-50" key={i}>
             <Link href={child}>{child}</Link>
           </li>
         ))}

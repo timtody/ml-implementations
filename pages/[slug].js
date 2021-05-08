@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { join } from "path";
-import { replace } from "lodash";
+import { pick, replace } from "lodash";
 import fs from "fs";
-import { zipObject } from "lodash";
+import Prism from "prismjs";
 
 import Layout from "../components/layout";
 import { parseMarkdown, parseFrontMatter } from "../lib/markdownHandler";
