@@ -8,7 +8,8 @@ https://prismjs.com/download.html#themes=prism-dark&languages=markup+css+clike+j
 
 code[class*="language-"],
 pre[class*="language-"] {
-  color: white;
+  @apply text-black;
+  @apply dark:text-indigo-50;
   background: none;
   font-size: 1em;
   text-align: left;
@@ -45,8 +46,8 @@ pre[class*="language-"] {
   padding: 1em;
   margin: 0.5em 0;
   overflow: auto;
-  @apply border;
-  @apply dark:border-indigo-400;
+  @apply bg-gray-100;
+  @apply dark:bg-gray-600;
   @apply rounded;
 }
 
@@ -83,16 +84,17 @@ pre[class*="language-"] {
   color: hsl(350, 40%, 70%);
 }
 
+.token.function,
 .token.selector,
 .token.attr-name,
 .token.char,
 .token.builtin,
 .token.inserted {
-  @apply dark:text-indigo-500;
+  @apply text-indigo-400;
 }
 
 .token.string {
-  @apply dark:text-green-300;
+  @apply text-green-300;
 }
 
 .token.operator,
@@ -100,17 +102,11 @@ pre[class*="language-"] {
 .token.url,
 .language-css .token.string,
 .style .token.string,
-.token.variable {
-  @apply dark:text-pink-600;
-}
-
+.token.variable,
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-  @apply dark:text-pink-600;
-}
-.token.function {
-  @apply dark:text-indigo-500;
+  @apply text-pink-500;
 }
 
 .token.regex,
