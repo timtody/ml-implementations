@@ -15,7 +15,7 @@ export default function Layout({ children, names }) {
         <meta name="og:title" content={siteTitle} />
         <title>{siteTitle}</title>
       </Head>
-      <div className="sticky top-0 w-full flex flex-row mx-auto bg-white dark:bg-gray-700 lg:h-16">
+      <div className="sticky top-0 w-full flex flex-row mx-auto bg-white dark:bg-gray-700 lg:h-16 z-50">
         <div className="text-3xl dark:bg-gray-700 lg:w-auto mt-2 inline-flex items-center lg:pr-10">
           <Link href="/">
             <a className="dark:text-indigo-50 align-middle">ML Gloss</a>
