@@ -6,7 +6,7 @@ import Outline from "./outline";
 
 export const siteTitle = "ML Gloss";
 
-export default function Layout({ children, names }) {
+export default function Layout({ children, catsAndNames }) {
   return (
     <div className="md:container md:mx-auto px-2 md:px-2 dark:bg-gray-700">
       <Head>
@@ -32,9 +32,10 @@ export default function Layout({ children, names }) {
         </div>
       </div>
       <div className="md:flex justify-between">
-        <SideBar className="lg:w-60 pt-10 mb-10 h-screen overflow-y-scroll">
-          {names}
-        </SideBar>
+        <SideBar
+          catsAndNames={catsAndNames}
+          className="lg:w-60 pt-2 mb-10 h-screen overflow-y-scroll"
+        />
         <div className="flex-1 container lg:px-24 pt-10 h-screen overflow-y-scroll">
           {children}
         </div>

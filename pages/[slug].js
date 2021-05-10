@@ -1,16 +1,14 @@
-import { useEffect } from "react";
 import { join } from "path";
-import { pick, replace } from "lodash";
+import { groupBy, replace } from "lodash";
 import fs from "fs";
-import Prism from "prismjs";
 
 import Layout from "../components/layout";
 import { parseMarkdown, parseFrontMatter } from "../lib/markdownHandler";
 
-export default function Page({ content, names }) {
+export default function Page({ content, catsAndNames }) {
   return (
     // TODO: let the layout get its own props...
-    <Layout names={names}>
+    <Layout catsAndNames={catsAndNames}>
       <div>{parseMarkdown(content.content)}</div>
     </Layout>
   );
@@ -18,7 +16,7 @@ export default function Page({ content, names }) {
 
 export async function getStaticProps(context) {
   const [contents, names] = getAllPostsAndNames();
-  //const posts = zipObject(names, contents);
+  const catsAndNames = getAllCatsWithNames();
 
   var posts = {};
   for (var i = 0; i < contents.length; i++) {
@@ -29,7 +27,7 @@ export async function getStaticProps(context) {
     };
   }
   return {
-    props: { content: posts[context.params.slug], names },
+    props: { content: posts[context.params.slug], catsAndNames },
   };
 }
 
@@ -46,4 +44,20 @@ function getAllPostsAndNames() {
     fs.readFileSync(join(postsDir, post), "utf-8")
   );
   return [posts, postsHandles.map((handle) => replace(handle, ".md", ""))];
+}
+
+function getAllCatsWithNames() {
+  const postDir = join(process.cwd(), "_pages");
+  const postHandles = fs.readdirSync(postDir);
+  const posts = postHandles.map((handle) => {
+    const post = fs.readFileSync(join(postDir, handle), "utf-8");
+    return {
+      Category: parseFrontMatter(post)?.Category,
+      Name: replace(handle, ".md", ""),
+    };
+  });
+  const cats = groupBy(posts, (value) => {
+    return value.Category;
+  });
+  return cats;
 }

@@ -1,3 +1,9 @@
++++
+Category = "Autoencoder"
+Author = "Julius"
++++
+
+
 # Papers
 https://arxiv.org/pdf/2101.03958.pdf
 

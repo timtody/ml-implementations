@@ -1,3 +1,8 @@
++++
+Category = "Regularisation"
+Author = "Lara"
++++
+
 # Header
 Dropout is kinda weird
 

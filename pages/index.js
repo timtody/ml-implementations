@@ -1,14 +1,14 @@
 import fs from "fs";
 import { join } from "path";
-import { parseMarkdown } from "../lib/markdownHandler";
+import { parseMarkdown, parseFrontMatter } from "../lib/markdownHandler";
 
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
-import _, { replace } from "lodash";
+import _, { replace, groupBy } from "lodash";
 
-export default function Home({ names }) {
+export default function Home({ names, catsAndNames }) {
   return (
-    <Layout names={names}>
+    <Layout catsAndNames={catsAndNames}>
       <Head>
         <title>{siteTitle}</title>
       </Head>
@@ -19,10 +19,12 @@ export default function Home({ names }) {
 
 export async function getStaticProps() {
   const [posts, names] = getAllPosts();
+  const catsAndNames = getAllCatsWithNames();
   return {
     props: {
       posts,
       names,
+      catsAndNames,
     },
   };
 }
@@ -34,4 +36,20 @@ function getAllPosts() {
     fs.readFileSync(join(postsDir, post), "utf-8")
   );
   return [posts, postsHandles.map((handle) => replace(handle, ".md", ""))];
+}
+
+function getAllCatsWithNames() {
+  const postDir = join(process.cwd(), "_pages");
+  const postHandles = fs.readdirSync(postDir);
+  const posts = postHandles.map((handle) => {
+    const post = fs.readFileSync(join(postDir, handle), "utf-8");
+    return {
+      Category: parseFrontMatter(post)?.Category,
+      Name: replace(handle, ".md", ""),
+    };
+  });
+  const cats = groupBy(posts, (value) => {
+    return value.Category;
+  });
+  return cats;
 }
