@@ -2,7 +2,6 @@ import Link from "next/link";
 import _ from "lodash";
 
 export default function Sidebar({ catsAndNames, className }) {
-  console.log(catsAndNames);
   return (
     <nav className={className}>
       <ul className="">

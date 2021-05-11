@@ -3,12 +3,16 @@ import { groupBy, replace } from "lodash";
 import fs from "fs";
 
 import Layout from "../components/layout";
-import { parseMarkdown, parseFrontMatter } from "../lib/markdownHandler";
+import {
+  parseMarkdown,
+  parseFrontMatter,
+  parseTOC,
+} from "../lib/markdownHandler";
 
 export default function Page({ content, catsAndNames }) {
   return (
     // TODO: let the layout get its own props...
-    <Layout catsAndNames={catsAndNames}>
+    <Layout catsAndNames={catsAndNames} toc={parseTOC(content.content)}>
       <div>{parseMarkdown(content.content)}</div>
     </Layout>
   );
