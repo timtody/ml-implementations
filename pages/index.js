@@ -12,7 +12,7 @@ export default function Home({ names, catsAndNames }) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      {parseMarkdown("# BRO")}
+      {parseMarkdown("# ML Gloss\n## Welcome!")}
     </Layout>
   );
 }
