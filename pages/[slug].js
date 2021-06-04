@@ -8,7 +8,6 @@ import {
   parseFrontMatter,
   parseTOC,
 } from "../lib/markdownHandler";
-import { Console } from "node:console";
 
 export default function Page({ content, catsAndNames }) {
   return (
@@ -46,9 +45,9 @@ function getAllPostsAndNames() {
   const postsDir = join(process.cwd(), "_pages");
   const postsHandles = fs.readdirSync(postsDir);
   var posts = [];
-  for (post of posts) {
+  for (const post of postsHandles) {
     if (!post.startsWith("_")) {
-      posts.append(fs.readFileSync(join(postsDir, post), "utf-8"));
+      posts.push(fs.readFileSync(join(postsDir, post), "utf-8"));
     }
   }
   return [posts, postsHandles.map((handle) => replace(handle, ".md", ""))];
@@ -58,18 +57,16 @@ function getAllCatsWithNames() {
   const postDir = join(process.cwd(), "_pages");
   const postHandles = fs.readdirSync(postDir);
   var posts = [];
-  for (handle in postHandles) {
-    if (!post.startsWith("_")) {
-      posts.append({
+  for (const handle of postHandles) {
+    if (!handle.startsWith("_")) {
+      posts.push({
         Category: parseFrontMatter(
-          fs.readFileSync(join(postsDir, handle), "utf-8")
+          fs.readFileSync(join(postDir, handle), "utf-8")
         )?.Category,
         Name: replace(handle, ".md", ""),
       });
     }
   }
-  console.log("BRRRRRRRRRRRRR");
-  console.log(posts);
   const cats = groupBy(posts, (value) => {
     return value.Category;
   });
