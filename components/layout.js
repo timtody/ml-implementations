@@ -15,15 +15,15 @@ export default function Layout({ children, catsAndNames, toc }) {
         <meta name="og:title" content={siteTitle} />
         <title>{siteTitle}</title>
       </Head>
-      <div className="sticky top-0 w-full flex flex-row mx-auto bg-white dark:bg-gray-700 lg:h-16 z-50">
-        <div className="text-3xl dark:bg-gray-700 lg:w-auto mt-2 inline-flex items-center lg:pr-10">
+      <div className="sticky top-0 z-50 flex flex-row w-full mx-auto bg-white dark:bg-gray-700 lg:h-16">
+        <div className="inline-flex items-center mt-2 text-3xl dark:bg-gray-700 lg:w-auto lg:pr-10">
           <Link href="/">
-            <a className="dark:text-indigo-50 align-middle">ML Gloss</a>
+            <a className="align-middle dark:text-indigo-50">ML Gloss</a>
           </Link>
         </div>
-        <div className="flex container flex-1 mt-2 lg:pl-44">
+        <div className="container flex flex-1 mt-2 lg:pl-44">
           <input
-            className="dark:bg-gray-700 dark:text-indigo-200 w-full h-full border-b dark:border-indigo-400 "
+            className="w-full h-full border-b dark:bg-gray-700 dark:text-indigo-200 dark:border-indigo-400 "
             defaultValue={`Quick search for anything...`}
           />
           <div className="inline-flex items-center border-b dark:border-indigo-400">
@@ -31,16 +31,16 @@ export default function Layout({ children, catsAndNames, toc }) {
           </div>
         </div>
       </div>
-      <div className="md:flex justify-between">
+      <div className="justify-between md:flex">
         <SideBar
           catsAndNames={catsAndNames}
-          className="lg:w-60 pt-2 mb-10 h-screen overflow-y-scroll"
+          className="h-screen pt-2 mb-10 overflow-y-scroll lg:w-60"
         />
-        <div className="flex-1 container lg:px-24 pt-10 h-screen overflow-y-scroll">
+        <div className="container flex-1 h-screen pt-10 overflow-y-scroll lg:px-24">
           {children}
         </div>
         <Outline
-          className="lg:w-60 pt-10 h-screen overflow-y-scroll"
+          className="h-screen pt-10 overflow-y-scroll lg:w-60"
           toc={toc}
         />
       </div>
