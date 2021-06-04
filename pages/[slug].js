@@ -8,6 +8,7 @@ import {
   parseFrontMatter,
   parseTOC,
 } from "../lib/markdownHandler";
+import { Console } from "node:console";
 
 export default function Page({ content, catsAndNames }) {
   return (
@@ -44,22 +45,31 @@ export async function getStaticPaths() {
 function getAllPostsAndNames() {
   const postsDir = join(process.cwd(), "_pages");
   const postsHandles = fs.readdirSync(postsDir);
-  const posts = postsHandles.map((post) =>
-    fs.readFileSync(join(postsDir, post), "utf-8")
-  );
+  var posts = [];
+  for (post of posts) {
+    if (!post.startsWith("_")) {
+      posts.append(fs.readFileSync(join(postsDir, post), "utf-8"));
+    }
+  }
   return [posts, postsHandles.map((handle) => replace(handle, ".md", ""))];
 }
 
 function getAllCatsWithNames() {
   const postDir = join(process.cwd(), "_pages");
   const postHandles = fs.readdirSync(postDir);
-  const posts = postHandles.map((handle) => {
-    const post = fs.readFileSync(join(postDir, handle), "utf-8");
-    return {
-      Category: parseFrontMatter(post)?.Category,
-      Name: replace(handle, ".md", ""),
-    };
-  });
+  var posts = [];
+  for (handle in postHandles) {
+    if (!post.startsWith("_")) {
+      posts.append({
+        Category: parseFrontMatter(
+          fs.readFileSync(join(postsDir, handle), "utf-8")
+        )?.Category,
+        Name: replace(handle, ".md", ""),
+      });
+    }
+  }
+  console.log("BRRRRRRRRRRRRR");
+  console.log(posts);
   const cats = groupBy(posts, (value) => {
     return value.Category;
   });
