@@ -6,13 +6,13 @@ import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
 import _, { replace, groupBy } from "lodash";
 
-export default function Home({ names, catsAndNames }) {
+export default function Home({ names, catsAndNames, indexSource }) {
   return (
     <Layout catsAndNames={catsAndNames}>
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      {parseMarkdown("# ML Gloss\n## Welcome!")}
+      {parseMarkdown(indexSource)}
     </Layout>
   );
 }
@@ -20,13 +20,24 @@ export default function Home({ names, catsAndNames }) {
 export async function getStaticProps() {
   const [posts, names] = getAllPosts();
   const catsAndNames = getAllCatsWithNames();
+  const indexSource = loadIndex();
   return {
     props: {
       posts,
       names,
       catsAndNames,
+      indexSource,
     },
   };
+}
+
+function loadIndex() {
+  const source = fs.readFileSync(
+    join(process.cwd(), "_pages", "_index.md"),
+    "utf8"
+  );
+  console.log(source);
+  return source;
 }
 
 function getAllPosts() {
