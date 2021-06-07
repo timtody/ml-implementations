@@ -45,7 +45,7 @@ function getAllPostsAndNames() {
   const postsDir = join(process.cwd(), "_pages");
   var postsHandles = fs.readdirSync(postsDir);
   postsHandles = filter(postsHandles, (handle) => {
-    !handle.startsWith("_");
+    return !handle.startsWith("_");
   });
   var posts = [];
   for (const post of postsHandles) {
