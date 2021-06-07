@@ -7,7 +7,7 @@ body {
 }
 
 .offset-heading {
-	margin-top: -56;
-	padding-bottom: 56;
+	margin-top: -64px;
+	padding-bottom: 64px;
 	display: block;
 }

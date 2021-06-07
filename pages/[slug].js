@@ -1,5 +1,5 @@
 import { join } from "path";
-import { groupBy, replace } from "lodash";
+import { groupBy, replace, filter } from "lodash";
 import fs from "fs";
 
 import Layout from "../components/layout";
@@ -43,7 +43,10 @@ export async function getStaticPaths() {
 
 function getAllPostsAndNames() {
   const postsDir = join(process.cwd(), "_pages");
-  const postsHandles = fs.readdirSync(postsDir);
+  var postsHandles = fs.readdirSync(postsDir);
+  postsHandles = filter(postsHandles, (handle) => {
+    !handle.startsWith("_");
+  });
   var posts = [];
   for (const post of postsHandles) {
     if (!post.startsWith("_")) {
