@@ -8,23 +8,23 @@ export const siteTitle = "ML Gloss";
 
 export default function Layout({ children, catsAndNames, toc }) {
   return (
-    <div className="h-screen md:container md:mx-auto px-2 md:px-2 dark:bg-gray-700">
+    <div className="min-h-full md:container md:mx-auto px-2 md:px-2 dark:bg-gray-700">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="ML Implementations" content="Baseline ML models" />
         <meta name="og:title" content={siteTitle} />
         <title>{siteTitle}</title>
       </Head>
-      <div className="justify-between md:flex">
+      <div className="justify-between min-h-full md:flex">
         <SideBar
           catsAndNames={catsAndNames}
-          className="h-screen pt-2 mb-10 overflow-y-scroll lg:w-60"
+          className="sticky top-0 h-screen mt-2 overflow-y-scroll lg:w-72"
         />
-        <div className="flex overflow-visible lg:max-h-full lg:static">
-          <div className="container z-40 flex-1 h-screen pt-10 lg:px-24">
+        <div className="flex h-full">
+          <div className="container z-40 flex-1 h-full pt-10 lg:px-24">
             {children}
           </div>
-          <div className="">
+          <div className="min-h-full">
             <Outline
               className="sticky top-0 flex flex-col pt-10 lg:w-60"
               toc={toc}
