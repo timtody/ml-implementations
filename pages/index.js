@@ -36,7 +36,6 @@ function loadIndex() {
     join(process.cwd(), "_pages", "_index.md"),
     "utf8"
   );
-  console.log(source);
   return source;
 }
 
