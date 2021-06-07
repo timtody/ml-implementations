@@ -8,13 +8,31 @@ export const siteTitle = "ML Gloss";
 
 export default function Layout({ children, catsAndNames, toc }) {
   return (
-    <div className="md:container md:mx-auto px-2 md:px-2 dark:bg-gray-700">
+    <div className="h-screen md:container md:mx-auto px-2 md:px-2 dark:bg-gray-700">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="ML Implementations" content="Baseline ML models" />
         <meta name="og:title" content={siteTitle} />
         <title>{siteTitle}</title>
       </Head>
+      <div className="justify-between md:flex">
+        <SideBar
+          catsAndNames={catsAndNames}
+          className="h-screen pt-2 mb-10 overflow-y-scroll lg:w-60"
+        />
+        <div className="flex overflow-visible lg:max-h-full lg:static">
+          <div className="container z-40 flex-1 h-screen pt-10 lg:px-24">
+            {children}
+          </div>
+          <div className="">
+            <Outline
+              className="sticky top-0 flex flex-col pt-10 lg:w-60"
+              toc={toc}
+            />
+          </div>
+        </div>
+      </div>
+      {/*
       <div className="sticky top-0 z-50 flex flex-row w-full mx-auto bg-white dark:bg-gray-700 lg:h-16">
         <div className="inline-flex items-center mt-2 text-3xl dark:bg-gray-700 lg:w-auto lg:pr-10">
           <Link href="/">
@@ -31,19 +49,7 @@ export default function Layout({ children, catsAndNames, toc }) {
           </div>
         </div>
       </div>
-      <div className="justify-between md:flex">
-        <SideBar
-          catsAndNames={catsAndNames}
-          className="h-screen pt-2 mb-10 overflow-y-scroll lg:w-60"
-        />
-        <div className="container flex-1 h-screen pt-10 overflow-y-scroll lg:px-24">
-          {children}
-        </div>
-        <Outline
-          className="h-screen pt-10 overflow-y-scroll lg:w-60"
-          toc={toc}
-        />
-      </div>
+      */}
     </div>
   );
 }

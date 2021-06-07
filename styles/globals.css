@@ -5,3 +5,9 @@
 body {
     @apply dark:bg-gray-700
 }
+
+.offset-heading {
+	margin-top: -56;
+	padding-bottom: 56;
+	display: block;
+}
