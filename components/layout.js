@@ -98,7 +98,7 @@ export function __Layout({ children, catsAndNames, toc }) {
   );
 }
 
-export function Layout({ children, catsAndNames, toc }) {
+export function ___Layout({ children, catsAndNames, toc }) {
   return (
     <div className="flex flex-row justify-between">
       {/* Left Sidebar*/}
@@ -126,15 +126,47 @@ export function Layout({ children, catsAndNames, toc }) {
         <div className="flex items-center sticky top-0 h-10 bg-white border-b border-t z-50">
           Home > Autoencoders > b-VAE
         </div>
-        <div className="w-96 mx-auto">{children}</div>
-      </div>
 
-      {/* Right Sidebar */}
-      <div className="sticky top-0 lg:w-1/5 flex flex-col h-screen">
-        <Outline
-          toc={toc}
-          className="dark:bg-gray-700 dark:text-gray-500 p-2"
-        />
+        <div className="flex flex-row">
+          <div className="w-96 mx-auto py-12">{children}</div>
+
+          {/* Right Sidebar */}
+          <div className="sticky top-12 pt-12 lg:w-1/5 flex flex-col h-screen">
+            <Outline
+              toc={toc}
+              className="dark:bg-gray-700 dark:text-gray-500 p-0"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Layout({ children, catsAndNames, toc }) {
+  return (
+    <div className="">
+      <div className="container mx-auto flex flex-row justify-center">
+        <div className="sticky top-0 flex flex-col pr-4 h-screen">
+          <input
+            type="text"
+            className="rounded border mt-16 mb-4 h-10 z-50 bg-white px-2"
+            defaultValue={`Search for stuff yo...`}
+          />
+          <SideBar
+            catsAndNames={catsAndNames}
+            className="w-64 h-screen overflow-scroll pb-8"
+          />
+        </div>
+        <div className="w-96 mt-16 overflow-scroll">{children}</div>
+      </div>
+      <div className="fixed top-0 w-full h-10 bg-white border-b border-t z-50">
+        <div className="container mx-auto flex flex-row items-center justify-center pr-4">
+          <Link href="/">
+            <a className="text-3xl w-64">ML Gloss</a>
+          </Link>
+          <div className="w-96 pl-4">Home > Autoencoders > b-VAE</div>
+        </div>
       </div>
     </div>
   );
