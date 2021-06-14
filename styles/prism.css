@@ -9,7 +9,7 @@ https://prismjs.com/download.html#themes=prism-dark&languages=markup+css+clike+j
 code[class*="language-"],
 pre[class*="language-"] {
   @apply text-black;
-  @apply dark:text-indigo-50;
+  @apply dark:text-gray-200;
   background: none;
   font-size: 1em;
   text-align: left;
@@ -90,7 +90,7 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  @apply text-indigo-400;
+  @apply text-gray-200;
 }
 
 .token.string {

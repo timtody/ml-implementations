@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 body {
-    @apply dark:bg-gray-700
+  @apply dark:bg-gray-800;
 }
 
 .offset-heading {
-	margin-top: -64px;
-	padding-bottom: 64px;
-	display: block;
+  margin-top: -64px;
+  padding-bottom: 64px;
+  display: block;
 }

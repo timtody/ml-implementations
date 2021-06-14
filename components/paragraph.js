@@ -1,3 +1,3 @@
 export function P({ children }) {
-  return <p className="dark:text-indigo-50">{children}</p>;
+  return <p className="dark:text-gray-200">{children}</p>;
 }

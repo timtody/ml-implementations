@@ -2,7 +2,7 @@ import { join } from "path";
 import { groupBy, replace, filter } from "lodash";
 import fs from "fs";
 
-import Layout from "../components/layout";
+import { Layout } from "../components/layout";
 import {
   parseMarkdown,
   parseFrontMatter,
