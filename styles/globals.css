@@ -4,6 +4,7 @@
 
 body {
   @apply dark:bg-gray-800;
+  overscroll-behavior: none;
 }
 
 .offset-heading {
