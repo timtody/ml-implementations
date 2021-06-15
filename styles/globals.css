@@ -5,6 +5,7 @@
 body {
   @apply dark:bg-gray-800;
   overscroll-behavior: none;
+  @apply text-gray-700;
 }
 
 .offset-heading {

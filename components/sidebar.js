@@ -10,7 +10,7 @@ export default function Sidebar({ catsAndNames, className }) {
             {_.toUpper(key)}
             <ul className="space-y-1 list-disc">
               {value.map((e) => (
-                <li className="text-sm" key={key}>
+                <li className="text-sm pl-2" key={key}>
                   <Link href={e.Name}>{e.Name}</Link>
                 </li>
               ))}

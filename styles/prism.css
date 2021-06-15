@@ -46,7 +46,7 @@ pre[class*="language-"] {
   padding: 1em;
   margin: 0.5em 0;
   overflow: auto;
-  @apply bg-gray-100;
+  @apply bg-gray-50;
   @apply dark:bg-gray-600;
   @apply rounded;
 }
@@ -90,11 +90,11 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  @apply text-gray-200;
+  @apply text-gray-800;
 }
 
 .token.string {
-  @apply text-green-300;
+  @apply text-gray-800;
 }
 
 .token.operator,
