@@ -21,6 +21,7 @@ export default function Page({ content, catsAndNames, slug }) {
           <div>1 week ago</div>
           <div className="flex flex-row space-x-2">
             <Tag color="red">PyTorch</Tag>
+            <Tag color="yellow">TF</Tag>
             <Tag color="pink">CNN</Tag>
             <Tag color="blue">CV</Tag>
           </div>
