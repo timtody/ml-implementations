@@ -17,8 +17,8 @@ export default function Page({ content, catsAndNames, slug }) {
       <div className="flex flex-col">
         <div className="text-3xl">{slug}</div>
         <div className="flex space-x-4 text-gray-500 text-sm py-2 items-center ">
-          <div>Julius Taylor</div>
-          <div>1 week ago</div>
+          <div className="text-yellow-300">Julius Taylor</div>
+          <div className="text-green-300">1 week ago</div>
           <div className="flex flex-row space-x-2">
             <Tag color="red">PyTorch</Tag>
             <Tag color="yellow">TF</Tag>
