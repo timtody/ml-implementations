@@ -145,7 +145,7 @@ export function ___Layout({ children, catsAndNames, toc }) {
 
 export function Layout({ children, catsAndNames, toc }) {
   return (
-    <div className="bg-pink-500">
+    <div className="">
       <div className="container mx-auto flex flex-row justify-center">
         <div className="sticky top-0 flex flex-col pr-4 h-screen">
           <input

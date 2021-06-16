@@ -1,5 +1,5 @@
 import { join } from "path";
-import { groupBy, replace, filter } from "lodash";
+import { groupBy, replace, filter, map } from "lodash";
 import fs from "fs";
 
 import { Layout } from "../components/layout";
@@ -10,20 +10,19 @@ import {
   parseTOC,
 } from "../lib/markdownHandler";
 
-export default function Page({ content, catsAndNames, slug }) {
+export default function Page({ content, catsAndNames, slug, tags }) {
   return (
     // TODO: let the layout get its own props... (or not?)
     <Layout catsAndNames={catsAndNames} toc={parseTOC(content.content)}>
       <div className="flex flex-col">
         <div className="text-3xl">{slug}</div>
-        <div className="flex space-x-4 text-gray-500 text-sm py-2 items-center ">
-          <div className="text-yellow-300">Julius Taylor</div>
-          <div className="text-green-300">1 week ago</div>
+        <div className="flex space-x-4 text-gray-500 text-sm py-2 items-center">
+          <div>Julius Taylor</div>
+          <div>1 week ago</div>
           <div className="flex flex-row space-x-2">
-            <Tag color="red">PyTorch</Tag>
-            <Tag color="yellow">TF</Tag>
-            <Tag color="pink">CNN</Tag>
-            <Tag color="blue">CV</Tag>
+            {map(tags, (colour, tag) => (
+              <Tag color={colour}>{tag}</Tag>
+            ))}
           </div>
         </div>
         <hr className="my-4" />
@@ -50,6 +49,7 @@ export async function getStaticProps(context) {
       content: posts[context.params.slug],
       catsAndNames,
       slug: context.params.slug,
+      tags: { PyTorch: "red", TF: "yellow" },
     },
   };
 }
