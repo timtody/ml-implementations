@@ -3,17 +3,31 @@ import { groupBy, replace, filter } from "lodash";
 import fs from "fs";
 
 import { Layout } from "../components/layout";
+import { Tag } from "../components/tag";
 import {
   parseMarkdown,
   parseFrontMatter,
   parseTOC,
 } from "../lib/markdownHandler";
 
-export default function Page({ content, catsAndNames }) {
+export default function Page({ content, catsAndNames, slug }) {
   return (
-    // TODO: let the layout get its own props...
+    // TODO: let the layout get its own props... (or not?)
     <Layout catsAndNames={catsAndNames} toc={parseTOC(content.content)}>
-      <div>{parseMarkdown(content.content)}</div>
+      <div className="flex flex-col">
+        <div className="text-3xl">{slug}</div>
+        <div className="flex space-x-4 text-gray-500 text-sm py-2 items-center ">
+          <div>Julius Taylor</div>
+          <div>1 week ago</div>
+          <div className="flex flex-row space-x-2">
+            <Tag color="red">PyTorch</Tag>
+            <Tag color="pink">CNN</Tag>
+            <Tag color="blue">CV</Tag>
+          </div>
+        </div>
+        <hr className="my-4" />
+        <div>{parseMarkdown(content.content)}</div>
+      </div>
     </Layout>
   );
 }
@@ -31,7 +45,11 @@ export async function getStaticProps(context) {
     };
   }
   return {
-    props: { content: posts[context.params.slug], catsAndNames },
+    props: {
+      content: posts[context.params.slug],
+      catsAndNames,
+      slug: context.params.slug,
+    },
   };
 }
 
