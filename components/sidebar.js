@@ -12,7 +12,7 @@ function maybeInsertTOC(name, active, toc) {
 
 function mapFilesToList(e, active, toc) {
   return (
-    <li key={e.Name} className="space-y-0">
+    <li key={e.Name} className="space-y-0 ">
       <div className={`text-sm ${listColor(e.Name, active)}`}>
         <Link href={e.Name}>{e.Name}</Link>
       </div>
@@ -23,9 +23,9 @@ function mapFilesToList(e, active, toc) {
 
 function mapCategoriesToList(value, key, active, toc) {
   return (
-    <li className="pb-1" key={key}>
-      {_.toUpper(key)}
-      <ul className="space-y-2 list-none list-inside mb-2">
+    <li className="pb-2" key={key}>
+      <div className="text-gray-500 text-sm">{_.toUpper(key)}</div>
+      <ul className="space-y-1 list-none list-inside pb-1 pt-1">
         {value.map((e) => mapFilesToList(e, active, toc))}
       </ul>
     </li>
