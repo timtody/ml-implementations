@@ -16,7 +16,7 @@ export function Layout({ children, catsAndNames, toc, slug }) {
           />
           <SideBar
             catsAndNames={catsAndNames}
-            className="w-64 h-screen overflow-scroll pb-8"
+            className="w-64 h-screen overflow-scroll"
             active={slug}
             toc={toc}
           />

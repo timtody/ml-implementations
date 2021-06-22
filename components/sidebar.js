@@ -12,20 +12,20 @@ function maybeInsertTOC(name, active, toc) {
 
 function mapFilesToList(e, active, toc) {
   return (
-    <li key={e.Name}>
-      <div className={`text-sm pl-0 pb-1 ${listColor(e.Name, active)}`}>
+    <li key={e.Name} className="space-y-0">
+      <div className={`text-sm ${listColor(e.Name, active)}`}>
         <Link href={e.Name}>{e.Name}</Link>
       </div>
-      <p>{maybeInsertTOC(e.Name, active, toc)}</p>
+      {maybeInsertTOC(e.Name, active, toc)}
     </li>
   );
 }
 
 function mapCategoriesToList(value, key, active, toc) {
   return (
-    <li className="" key={key}>
+    <li className="pb-1" key={key}>
       {_.toUpper(key)}
-      <ul className="space-y-1 list-none list-inside mb-2">
+      <ul className="space-y-2 list-none list-inside mb-2">
         {value.map((e) => mapFilesToList(e, active, toc))}
       </ul>
     </li>
@@ -34,7 +34,7 @@ function mapCategoriesToList(value, key, active, toc) {
 
 export default function Sidebar({ catsAndNames, className, active, toc }) {
   return (
-    <ul className={`${className}`}>
+    <ul className={`space-y-2 ${className}`}>
       {_.map(catsAndNames, (value, key) =>
         mapCategoriesToList(value, key, active, toc)
       )}
