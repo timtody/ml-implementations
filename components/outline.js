@@ -1,15 +1,12 @@
 export default function Outline({ className, toc }) {
   return (
-    <div className={`${className} dark:text-gray-200`}>
-      <div className="mb-2 dark:text-gray-200">OUTLINE</div>
-      {tocToReact(toc)}
-    </div>
+    <div className={`${className} dark:text-gray-200`}>{tocToReact(toc)}</div>
   );
 }
 
 function tocToReact(headings) {
   return (
-    <div>
+    <div className="pl-2 bg-gray-200 rounded">
       {headings?.map((children) => (
         <a href={`#${children.value}`}>
           <h1 className={mapDepthToTWClass(children.depth)}>
@@ -24,12 +21,12 @@ function tocToReact(headings) {
 
 function mapDepthToTWClass(depth) {
   if (depth === 1) {
-    return "text-xl mt-2";
+    return "text-xl";
   } else if (depth == 2) {
-    return "text-lg ml-2 dark:text-gray-200";
+    return "text-lg dark:text-gray-200";
   } else if (depth == 3) {
-    return "text-base ml-4 dark:text-gray-200";
+    return "text-base dark:text-gray-200";
   } else if (depth == 4) {
-    return "text-sm ml-8 dark:text-gray-200";
+    return "text-sm dark:text-gray-200";
   }
 }
