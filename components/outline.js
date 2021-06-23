@@ -10,7 +10,7 @@ function tocToReact(headings) {
   return (
     <div className="pl-2">
       {headings?.map((children) => (
-        <a href={`#${children.value}`}>
+        <a key={children.value} href={`#${children.value}`}>
           <h1 className={mapDepthToTWClass(children.depth)}>
             {children.value}
           </h1>

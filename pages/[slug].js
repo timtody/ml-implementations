@@ -27,7 +27,7 @@ export default function Page({ content, catsAndNames, slug, tags }) {
           <div>{moment(content?.Date).fromNow()}</div>
           <div className="flex flex-row space-x-2">
             {map(tags, (colour, tag) => (
-              <Tag color={colour}>{tag}</Tag>
+              <Tag key={tag} color={colour}>{tag}</Tag>
             ))}
           </div>
         </div>
