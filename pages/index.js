@@ -1,6 +1,5 @@
 import {
   parseMarkdown,
-  parseFrontMatter,
   parseTOC,
 } from "../lib/markdownHandler";
 
