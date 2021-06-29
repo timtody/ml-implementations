@@ -11,8 +11,8 @@ export function Layout({ children, catsAndNames, toc, slug }) {
         <div className="sticky top-0 flex flex-col pr-4 h-screen">
           <input
             type="text"
-            className="rounded border mt-16 mb-4 h-10 z-50 bg-white px-2"
-            defaultValue={`Search for stuff yo...`}
+            className="rounded border mt-16 mb-4 h-10 z-50 bg-white px-2 text-xs text-gray-500"
+            defaultValue={`Search...`}
           />
           <SideBar
             catsAndNames={catsAndNames}
