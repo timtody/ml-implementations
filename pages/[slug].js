@@ -1,17 +1,13 @@
 import * as React from "react";
+import { useState } from "react";
 import { join } from "path";
-import { groupBy, replace, filter, map } from "lodash";
+import _, { groupBy, replace, filter, map } from "lodash";
 import fs from "fs";
 import moment from "moment";
 
 import { Layout } from "../components/layout";
 import { Tag } from "../components/tag";
-import {
-  parseMarkdown,
-  parseFrontMatter,
-  parseTOC,
-  removeFrontMatter,
-} from "../lib/markdownHandler";
+import { parseFrontMatter, parseTOC, matter } from "../lib/markdownHandler";
 
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
@@ -21,14 +17,34 @@ import math from "remark-math";
 import katex from "rehype-katex";
 
 import { H1, H2, H3, H4 } from "../components/headings";
-import { P } from "../components/paragraph";
-import markdown from "remark-parse";
+import SimpleChart from "../components/simpleChart";
+
+import tagColors from "../lib/tagColors";
 
 function Test() {
-  return <div>Test component WHATUP!!!</div>;
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <button
+        className="bg-green-200 rounded border-green-500 p-1 hover:bg-green-600"
+        onClick={() => setCount(count + 1)}
+      >
+        Click me
+      </button>
+      <p>You clicked {count} times</p>
+    </div>
+  );
 }
 
-const components = { Test, h1: H1, h2: H2, h3: H3, h4: H4 };
+const components = { Test, h1: H1, h2: H2, h3: H3, h4: H4, SimpleChart };
+
+function renderTags(tags) {
+  return map(tags, (colour, tag) => (
+    <Tag key={tag} color={colour}>
+      {tag}
+    </Tag>
+  ));
+}
 
 export default function Page({ content, catsAndNames, slug, tags, source }) {
   return (
@@ -38,19 +54,12 @@ export default function Page({ content, catsAndNames, slug, tags, source }) {
       toc={parseTOC(content.content)}
       slug={slug}
     >
-      <div className="wrapper"></div>
       <div className="flex flex-col pb-10">
         <div className="text-3xl">{slug}</div>
         <div className="flex space-x-4 text-gray-500 text-sm py-2 items-center">
           <div>{content?.Author}</div>
           <div>{moment(content?.Date).fromNow()}</div>
-          <div className="flex flex-row space-x-2">
-            {map(tags, (colour, tag) => (
-              <Tag key={tag} color={colour}>
-                {tag}
-              </Tag>
-            ))}
-          </div>
+          <div className="flex flex-row space-x-2">{renderTags(tags)}</div>
         </div>
 
         <hr className="my-4" />
@@ -81,6 +90,15 @@ export default function Page({ content, catsAndNames, slug, tags, source }) {
   );
 }
 
+function mapTagsListToColours(taglist) {
+  const tags = _.map(_.split(taglist, ","), _.trim);
+  const tagsWithColors = {};
+  for (const tag of tags) {
+    tagsWithColors[tag] = tagColors[tag] ? tagColors[tag] : "gray";
+  }
+  return tagsWithColors;
+}
+
 export async function getStaticProps(context) {
   const [contents, names] = getAllPostsAndNames();
   const catsAndNames = getAllCatsWithNames();
@@ -94,21 +112,22 @@ export async function getStaticProps(context) {
     };
   }
 
-  const source = removeFrontMatter(posts[context.params.slug].content);
+  const [frontmatter, source] = matter(posts[context.params.slug].content);
   const mdxSource = await serialize(source, {
     mdxOptions: {
       remarkPlugins: [math],
       rehypePlugins: [prism, katex],
     },
   });
-  // console.log("MDX SOURCE", mdxSource);
+
+  const tags = mapTagsListToColours(frontmatter.Tags);
 
   return {
     props: {
       content: posts[context.params.slug],
       catsAndNames,
       slug: context.params.slug,
-      tags: { PyTorch: "red", TF: "yellow" },
+      tags,
       source: mdxSource,
     },
   };

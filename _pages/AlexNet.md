@@ -1,11 +1,12 @@
 +++
 Category = "Image Recognition"
 Author = "Julius"
-Tags = "PyTorch, TF"
+Tags = "PyTorch, TF, Test, JAX, Test2, bebu"
 Date = "2021-06-16"
 +++
 
 <Test />
+<SimpleChart />
 
 # Post 3
 
