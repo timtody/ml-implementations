@@ -34,7 +34,9 @@ export default function TagPane({ tags, visibleTags = 3 }) {
   return (
     <>
       {displayTags}
-      <OverflowTag allTags={allTags}>{hiddenTags}</OverflowTag>
+      <OverflowTag allTags={displayTags.concat(hiddenTags)}>
+        {hiddenTags}
+      </OverflowTag>
     </>
   );
 }
