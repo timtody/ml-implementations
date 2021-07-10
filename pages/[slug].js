@@ -1,12 +1,10 @@
 import * as React from "react";
 import { useState } from "react";
 import { join } from "path";
-import _, { groupBy, replace, filter, map } from "lodash";
+import _, { groupBy, replace, filter } from "lodash";
 import fs from "fs";
-import moment from "moment";
 
 import { Layout } from "../components/layout";
-import { Tag } from "../components/tag";
 import { parseFrontMatter, parseTOC, matter } from "../lib/markdownHandler";
 
 import { serialize } from "next-mdx-remote/serialize";
@@ -18,8 +16,10 @@ import katex from "rehype-katex";
 
 import { H1, H2, H3, H4 } from "../components/headings";
 import SimpleChart from "../components/simpleChart";
+import References from "../components/References";
 
 import tagColors from "../lib/tagColors";
+import ArticleHeader from "../components/ArticleHeader";
 
 function Test() {
   const [count, setCount] = useState(0);
@@ -38,65 +38,26 @@ function Test() {
 
 const components = { Test, h1: H1, h2: H2, h3: H3, h4: H4, SimpleChart };
 
-function renderTags(tags) {
-  return map(tags, (colour, tag) => (
-    <Tag key={tag} color={colour}>
-      {tag}
-    </Tag>
-  ));
-}
-
 export default function Page({ content, catsAndNames, slug, tags, source }) {
   return (
-    // TODO: let the layout get its own props... (or not?)
     <Layout
       catsAndNames={catsAndNames}
       toc={parseTOC(content.content)}
       slug={slug}
     >
       <div className="flex flex-col pb-10">
-        <div className="text-3xl">{slug}</div>
-        <div className="flex space-x-4 text-gray-500 text-sm py-2 items-center">
-          <div>{content?.Author}</div>
-          <div>{moment(content?.Date).fromNow()}</div>
-          <div className="flex flex-row space-x-2">{renderTags(tags)}</div>
-        </div>
-
+        <ArticleHeader
+          author={content.Author}
+          slug={slug}
+          date={content.Date}
+          tags={tags}
+        />
         <hr className="my-4" />
-        {/* <div>{parseMarkdown(content.content)}</div> */}
         <MDXRemote {...source} components={components} />
-        <hr className="mt-4 mb-0" />
-        <div className="text-gray-400 text-sm mb-2">References</div>
-        <div className="text-gray-500 space-y-2">
-          <div>
-            Papoudakis, G., Christianos, F., Rahman, A., & Albrecht, S. V.
-            (2019). Dealing with non-stationarity in multi-agent deep
-            reinforcement learning. arXiv preprint arXiv:1906.04737.
-          </div>
-          <div>
-            Coman, A., Momennejad, I., Drach, R. D., & Geana, A. (2016).
-            Mnemonic convergence in social networks: The emergent properties of
-            cognition at a collective level. Proceedings of the National Academy
-            of Sciences, 113(29), 8171-8176.
-          </div>
-          <div>
-            Guilbeault, D., Becker, J., & Centola, D. (2018). Complex
-            contagions: A decade in review. Complex spreading phenomena in
-            social systems, 3-25.
-          </div>
-        </div>
+        <References />
       </div>
     </Layout>
   );
-}
-
-function mapTagsListToColours(taglist) {
-  const tags = _.map(_.split(taglist, ","), _.trim);
-  const tagsWithColors = {};
-  for (const tag of tags) {
-    tagsWithColors[tag] = tagColors[tag] ? tagColors[tag] : "gray";
-  }
-  return tagsWithColors;
 }
 
 export async function getStaticProps(context) {
@@ -120,7 +81,8 @@ export async function getStaticProps(context) {
     },
   });
 
-  const tags = mapTagsListToColours(frontmatter.Tags);
+  // Bandaid fix. What behaviour do we want if there are not tags defined?
+  const tags = frontmatter.Tags ? frontmatter.Tags : [];
 
   return {
     props: {

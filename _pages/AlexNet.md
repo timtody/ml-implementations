@@ -1,12 +1,36 @@
 +++
 Category = "Image Recognition"
 Author = "Julius"
-Tags = "PyTorch, TF, Test, JAX, Test2, bebu"
+Tags = "PyTorch, TF, Test, JAX, Test2"
 Date = "2021-06-16"
 +++
 
 <Test />
-<SimpleChart />
+<SimpleChart data={{
+  labels: [
+    "12am-3am",
+    "3am-6pm",
+    "6am-9am",
+    "9am-12am",
+    "12pm-3pm",
+    "3pm-6pm",
+    "6pm-9pm",
+    "9am-12am",
+  ],
+  datasets: [
+    {
+      name: "Love for bobi",
+      chartType: "bar",
+      values: [25, 40, 30, 35, 8, 52, 17, 999],
+    },
+    {
+      name: "Another Set",
+      chartType: "line",
+      values: [25, 50, -10, 15, 18, 32, 27, 14],
+    },
+  ],
+}}
+/>
 
 # Post 3
 
