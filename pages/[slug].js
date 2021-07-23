@@ -4,7 +4,7 @@ import { join } from "path";
 import _, { groupBy, replace, filter } from "lodash";
 import fs from "fs";
 
-import { Layout } from "../components/layout";
+import { Layout } from "../components/Layout";
 import { parseFrontMatter, parseTOC, matter } from "../lib/markdownHandler";
 
 import { serialize } from "next-mdx-remote/serialize";
@@ -14,8 +14,8 @@ import prism from "@mapbox/rehype-prism";
 import math from "remark-math";
 import katex from "rehype-katex";
 
-import { H1, H2, H3, H4 } from "../components/headings";
-import SimpleChart from "../components/simpleChart";
+import { H1, H2, H3, H4 } from "../components/Heading";
+import SimpleChart from "../components/SimpleChart";
 import References from "../components/References";
 
 import ArticleHeader from "../components/ArticleHeader";
@@ -105,7 +105,7 @@ export async function getStaticProps(context) {
       slug: context.params.slug,
       tags,
       source: mdxSource,
-      bib: frontmatter.bib,
+      bib: frontmatter?.bib,
     },
   };
 }
