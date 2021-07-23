@@ -1,6 +1,6 @@
 import Link from "next/link";
 import _ from "lodash";
-import Outline from "./outline";
+import Outline from "./Outline";
 
 function listColor(name, active) {
   return name == active ? "text-gray-800 font-semibold" : "font-normal";

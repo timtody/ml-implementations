@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import SideBar from "./sidebar";
+import SideBar from "./SideBar";
 
 export const siteTitle = "ML Gloss";
 

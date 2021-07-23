@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { useState } from "react";
-import { Tag } from "../components/tag";
+import { Tag } from "./Tag";
 import tagColors from "../lib/tagColors";
 import MyPopover from "./Popover";
 
