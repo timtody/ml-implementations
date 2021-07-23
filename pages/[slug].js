@@ -18,7 +18,6 @@ import { H1, H2, H3, H4 } from "../components/headings";
 import SimpleChart from "../components/simpleChart";
 import References from "../components/References";
 
-import tagColors from "../lib/tagColors";
 import ArticleHeader from "../components/ArticleHeader";
 
 function Test() {
@@ -38,7 +37,21 @@ function Test() {
 
 const components = { Test, h1: H1, h2: H2, h3: H3, h4: H4, SimpleChart };
 
-export default function Page({ content, catsAndNames, slug, tags, source }) {
+export default function Page({
+  content,
+  catsAndNames,
+  slug,
+  tags,
+  source,
+  bib,
+}) {
+  console.log(bib);
+
+  function Cite({ key, text = false }) {
+    console.log("bib and keyy", bib, key);
+    return <>{bib[key]?.author}</>;
+  }
+
   return (
     <Layout
       catsAndNames={catsAndNames}
@@ -53,7 +66,7 @@ export default function Page({ content, catsAndNames, slug, tags, source }) {
           tags={tags}
         />
         <hr className="my-4" />
-        <MDXRemote {...source} components={components} />
+        <MDXRemote {...source} components={{ ...components, Cite }} />
         <References />
       </div>
     </Layout>
@@ -74,6 +87,7 @@ export async function getStaticProps(context) {
   }
 
   const [frontmatter, source] = matter(posts[context.params.slug].content);
+  console.log("BIB", frontmatter.bib);
   const mdxSource = await serialize(source, {
     mdxOptions: {
       remarkPlugins: [math],
@@ -91,6 +105,7 @@ export async function getStaticProps(context) {
       slug: context.params.slug,
       tags,
       source: mdxSource,
+      bib: frontmatter.bib,
     },
   };
 }

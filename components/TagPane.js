@@ -1,7 +1,9 @@
 import _ from "lodash";
+import { useState } from "react";
 import { Tag } from "../components/tag";
 import tagColors from "../lib/tagColors";
 import { OverflowTag } from "./OverflowTag";
+import MyPopover from "../components/popover";
 
 function renderTags(tags) {
   return tags.map((tag) => {
@@ -28,15 +30,22 @@ export default function TagPane({ tags, visibleTags = 3 }) {
   let allTags = colorTags.concat(grayTags);
   let tagComponentList = renderTags(allTags);
 
-  let displayTags = tagComponentList.splice(0, visibleTags);
-  let hiddenTags = tagComponentList;
+  let dt = tagComponentList.splice(0, visibleTags);
+  const [displayTags, setDisplayTags] = useState(dt);
+  const [hiddenTags, setHiddenTags] = useState(tagComponentList);
+  const allTagsCopy = dt.concat(hiddenTags);
 
   return (
     <>
       {displayTags}
-      <OverflowTag allTags={displayTags.concat(hiddenTags)}>
-        {hiddenTags}
-      </OverflowTag>
+      <MyPopover
+        content={allTagsCopy}
+        buttonText={
+          <Tag color="gray" onClick={() => {}}>
+            {`+${hiddenTags.length}`}
+          </Tag>
+        }
+      />
     </>
   );
 }

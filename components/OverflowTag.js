@@ -1,22 +1,14 @@
-import { useState } from "react";
 import { Tag } from "../components/tag";
-import PopOver from "./Popover";
 
-export function OverflowTag({ children, allTags }) {
-  const [visible, setVisible] = useState(false);
+export function OverflowTag({ children, allTags, onClick }) {
+  if (children.length === 0) {
+    return "";
+  }
   return (
     <>
-      <Tag
-        className=""
-        color="gray"
-        onMouseEnter={() => setVisible(true)}
-        onMouseLeave={() => setVisible(false)}
-      >
+      <Tag color="gray" onClick={onClick}>
         {`+${children.length}`}
       </Tag>
-      <PopOver visible={visible} content={allTags}>
-        {allTags}
-      </PopOver>
     </>
   );
 }

@@ -6,29 +6,33 @@ export default function Outline({ className, toc }) {
   );
 }
 
-function tocToReact(headings) {
+function tocToReact(headings, depth = 2) {
+  if (headings[0]?.depth === depth) return;
   return (
     <div className="pl-2">
-      {headings?.map((children) => (
-        <a key={children.value} href={`#${children.value}`}>
-          <h1 className={mapDepthToTWClass(children.depth)}>
-            {children.value}
-          </h1>
-          {tocToReact(children.children)}
-        </a>
-      ))}
+      {headings?.map((children, index) => {
+        return (
+          <a key={index} href={`#${children.value}`}>
+            <div className={depthToTailwindClass(children.depth)}>
+              {children.value}
+            </div>
+            {tocToReact(children.children)}
+          </a>
+        );
+      })}
     </div>
   );
 }
 
-function mapDepthToTWClass(depth) {
-  if (depth === 1) {
-    return "text-sm";
-  } else if (depth == 2) {
-    return "text-sm dark:text-gray-200 hidden";
-  } else if (depth == 3) {
-    return "text-sm dark:text-gray-200 hidden";
-  } else if (depth == 4) {
-    return "text-sm dark:text-gray-200 hidden";
+function depthToTailwindClass(depth) {
+  switch (depth) {
+    case 1:
+      return "text-sm";
+    case 2:
+      return "text-sm dark:text-gray-200";
+    case 3:
+      return "text-sm dark:text-gray-200";
+    case 4:
+      return "text-sm dark:text-gray-200";
   }
 }

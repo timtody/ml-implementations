@@ -1,17 +1,11 @@
-export function Tag({
-  color,
-  children,
-  className,
-  onMouseEnter,
-  onMouseLeave,
-}) {
+export function Tag({ color, children, className, onClick = () => {} }) {
   return (
-    <p
-      className={`rounded p-1 bg-${color}-100 text-${color}-500 ${className}`}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+    <button
+      className={`rounded shadow-sm p-1 bg-${color}-200 text-${color}-800 ${className} 
+      focus:outline-none hover:bg-${color}-300 hover:text-${color}-900`}
+      onClick={onClick}
     >
       {children}
-    </p>
+    </button>
   );
 }

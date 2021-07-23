@@ -14,7 +14,7 @@ function mapFilesToList(e, active, toc) {
   return (
     <li key={e.Name} className="space-y-0 ">
       <div className={`text-sm ${listColor(e.Name, active)}`}>
-        <Link href={e.Name}>{e.Name}</Link>
+        <Link href={`/${e.Name}`}>{e.Name}</Link>
       </div>
       {maybeInsertTOC(e.Name, active, toc)}
     </li>

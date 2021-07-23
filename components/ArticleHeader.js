@@ -7,8 +7,8 @@ export default function ArticleHeader({ slug, author, date, tags }) {
       <div className="text-3xl">{slug}</div>
       <div className="flex space-x-4 text-gray-500 text-sm py-2 items-center">
         <div>{author}</div>
-        <div>{moment(date).fromNow()}</div>
-        <div className="flex flex-row space-x-2">
+        <div className="overflow-auto">{moment(date).fromNow()}</div>
+        <div className="flex flex-row space-x-2 space-y-0 flex-wrap">
           <TagPane tags={tags} />
         </div>
       </div>

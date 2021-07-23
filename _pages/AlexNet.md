@@ -1,8 +1,22 @@
 +++
 Category = "Image Recognition"
 Author = "Julius"
-Tags = "PyTorch, TF, Test, JAX, Test2"
+Tags = "PyTorch, TF, Keras, JAX, CNN, CV, GPU, Keras, CNN, CV, GPU"
 Date = "2021-06-16"
+
+[bib]
+
+[bib.meng2020training]
+author = "Meng, Xiangming and Bachmann, Roman and Khan, Mohammad Emtiyaz"
+title = "Training binary neural networks using the bayesian learning rule"
+journal = "PMLR"
+year = "2020"
+
+[bib.colas2020intrinsically]
+title = "Intrinsically motivated goal-conditioned reinforcement learning: a short survey"
+author= "Colas, C{\'e}dric and Karch, Tristan and Sigaud, Olivier and Oudeyer, Pierre-Yves"
+journal = "arXiv preprint arXiv:2012.09830"
+year = "2020"
 +++
 
 <Test />
@@ -34,7 +48,8 @@ Date = "2021-06-16"
 
 # Post 3
 
-Bro
+Theory X holds according to <Cite key="meng2020training" />.
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 ## Dolor Sit Amet
