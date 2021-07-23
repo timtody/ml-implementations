@@ -1,4 +1,4 @@
-import { Tag } from "../components/tag";
+import { Tag } from "./Tag";
 
 export function OverflowTag({ children, allTags, onClick }) {
   if (children.length === 0) {
