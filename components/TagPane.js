@@ -2,8 +2,7 @@ import _ from "lodash";
 import { useState } from "react";
 import { Tag } from "../components/tag";
 import tagColors from "../lib/tagColors";
-import { OverflowTag } from "./OverflowTag";
-import MyPopover from "../components/popover";
+import MyPopover from "./Popover";
 
 function renderTags(tags) {
   return tags.map((tag) => {

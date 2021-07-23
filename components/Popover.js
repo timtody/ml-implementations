@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Popover } from "@headlessui/react";
 import { usePopper } from "react-popper";
-import { Tag } from "./tag";
 
 export default function MyPopover({ buttonText, content }) {
   let [referenceElement, setReferenceElement] = useState();
