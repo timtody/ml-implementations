@@ -105,7 +105,7 @@ export async function getStaticProps(context) {
       slug: context.params.slug,
       tags,
       source: mdxSource,
-      bib: frontmatter?.bib,
+      bib: frontmatter.bib ? frontmatter.bib : null,
     },
   };
 }
