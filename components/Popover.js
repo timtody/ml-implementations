@@ -21,8 +21,8 @@ export default function MyPopover({ buttonText, content }) {
         {...attributes.popper}
         className="z-50"
       >
-        <div className="bg-gray-50 rounded p-2 shadow-sm">
-          <p>All tags:</p>
+        <div className="bg-gray-50 rounded p-2 shadow-sm space-y-2 text-gray-400">
+          <p className="">All tags:</p>
           <div className="grid grid-cols-3 gap-2">{content}</div>
         </div>
       </Popover.Panel>

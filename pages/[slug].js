@@ -1,11 +1,10 @@
 import * as React from "react";
-import { useState } from "react";
 import { join } from "path";
-import _, { groupBy, replace, filter } from "lodash";
+import _, { filter, groupBy, replace } from "lodash";
 import fs from "fs";
 
 import { Layout } from "../components/Layout";
-import { parseFrontMatter, parseTOC, matter } from "../lib/markdownHandler";
+import { matter, parseFrontMatter, parseTOC } from "../lib/markdownHandler";
 
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
@@ -19,42 +18,31 @@ import SimpleChart from "../components/SimpleChart";
 import References from "../components/References";
 
 import ArticleHeader from "../components/ArticleHeader";
-
-function Test() {
-  const [count, setCount] = useState(0);
-  return (
-    <div>
-      <button
-        className="bg-green-200 rounded border-green-500 p-1 hover:bg-green-600"
-        onClick={() => setCount(count + 1)}
-      >
-        Click me
-      </button>
-      <p>You clicked {count} times</p>
-    </div>
-  );
-}
-
-const components = { Test, h1: H1, h2: H2, h3: H3, h4: H4, SimpleChart };
+import Cite from "../components/Cite";
 
 export default function Page({
   content,
-  catsAndNames,
+  categoriesAndPosts,
   slug,
   tags,
   source,
   bib,
 }) {
-  console.log(bib);
-
-  function Cite({ key, text = false }) {
-    console.log("bib and keyy", bib, key);
-    return <>{bib[key]?.author}</>;
-  }
+  const components = {
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    Cite: (props) => (
+      <Cite {...props} bib={bib} referenceContainer={References} />
+    ),
+    References: () => <References bib={bib} />,
+    SimpleChart,
+  };
 
   return (
     <Layout
-      catsAndNames={catsAndNames}
+      categoriesAndPosts={categoriesAndPosts}
       toc={parseTOC(content.content)}
       slug={slug}
     >
@@ -66,8 +54,7 @@ export default function Page({
           tags={tags}
         />
         <hr className="my-4" />
-        <MDXRemote {...source} components={{ ...components, Cite }} />
-        <References />
+        <MDXRemote {...source} components={components} />
       </div>
     </Layout>
   );
@@ -75,10 +62,10 @@ export default function Page({
 
 export async function getStaticProps(context) {
   const [contents, names] = getAllPostsAndNames();
-  const catsAndNames = getAllCatsWithNames();
+  const categoriesAndPosts = getAllCatsWithNames();
 
-  var posts = {};
-  for (var i = 0; i < contents.length; i++) {
+  let posts = {};
+  for (let i = 0; i < contents.length; i++) {
     const content = contents[i];
     posts[names[i]] = {
       content,
@@ -87,7 +74,6 @@ export async function getStaticProps(context) {
   }
 
   const [frontmatter, source] = matter(posts[context.params.slug].content);
-  console.log("BIB", frontmatter.bib);
   const mdxSource = await serialize(source, {
     mdxOptions: {
       remarkPlugins: [math],
@@ -95,13 +81,13 @@ export async function getStaticProps(context) {
     },
   });
 
-  // Bandaid fix. What behaviour do we want if there are not tags defined?
+  // Band aid fix. What behaviour do we want if there are not tags defined?
   const tags = frontmatter.Tags ? frontmatter.Tags : [];
 
   return {
     props: {
       content: posts[context.params.slug],
-      catsAndNames,
+      categoriesAndPosts,
       slug: context.params.slug,
       tags,
       source: mdxSource,
@@ -118,11 +104,11 @@ export async function getStaticPaths() {
 
 function getAllPostsAndNames() {
   const postsDir = join(process.cwd(), "_pages");
-  var postsHandles = fs.readdirSync(postsDir);
+  let postsHandles = fs.readdirSync(postsDir);
   postsHandles = filter(postsHandles, (handle) => {
     return !handle.startsWith("_");
   });
-  var posts = [];
+  let posts = [];
   for (const post of postsHandles) {
     if (!post.startsWith("_")) {
       posts.push(fs.readFileSync(join(postsDir, post), "utf-8"));
@@ -134,19 +120,23 @@ function getAllPostsAndNames() {
 function getAllCatsWithNames() {
   const postDir = join(process.cwd(), "_pages");
   const postHandles = fs.readdirSync(postDir);
-  var posts = [];
+  let posts = [];
   for (const handle of postHandles) {
     if (!handle.startsWith("_")) {
       posts.push({
         Category: parseFrontMatter(
           fs.readFileSync(join(postDir, handle), "utf-8")
-        )?.Category,
+        ).Category,
         Name: replace(handle, ".md", ""),
       });
     }
   }
-  const cats = groupBy(posts, (value) => {
-    return value?.Category;
+  const grouped = groupBy(posts, (value) => {
+    return value.Category;
   });
-  return cats;
+  let allPosts = [];
+  for (const category in grouped) {
+    allPosts.push({ category: category, posts: grouped[category] });
+  }
+  return allPosts;
 }

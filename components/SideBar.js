@@ -1,16 +1,18 @@
 import Link from "next/link";
 import _ from "lodash";
 import Outline from "./Outline";
+import { useState } from "react";
 
 function listColor(name, active) {
-  return name == active ? "text-gray-800 font-semibold" : "font-normal";
+  return name === active ? "text-gray-800 font-semibold" : "font-normal";
 }
 
 function maybeInsertTOC(name, active, toc) {
-  return name == active ? <Outline toc={toc} /> : "";
+  return name === active ? <Outline toc={toc} /> : "";
 }
 
 function mapFilesToList(e, active, toc) {
+  console.log("mapping file to list", e);
   return (
     <li key={e.Name} className="space-y-0 ">
       <div className={`text-sm ${listColor(e.Name, active)}`}>
@@ -21,7 +23,8 @@ function mapFilesToList(e, active, toc) {
   );
 }
 
-function mapCategoriesToList(value, key, active, toc) {
+function renderSideBar(value, key, active, toc) {
+  console.log(value);
   return (
     <li className="pb-2" key={key}>
       <div className="text-gray-500 text-sm">{_.toUpper(key)}</div>
@@ -32,12 +35,34 @@ function mapCategoriesToList(value, key, active, toc) {
   );
 }
 
-export default function Sidebar({ catsAndNames, className, active, toc }) {
+export default function Sidebar({
+  categoriesAndPosts,
+  className,
+  active,
+  toc,
+}) {
+  console.log(categoriesAndPosts);
+  const [content, setContent] = useState(categoriesAndPosts);
   return (
-    <ul className={`space-y-2 ${className}`}>
-      {_.map(catsAndNames, (value, key) =>
-        mapCategoriesToList(value, key, active, toc)
-      )}
-    </ul>
+    <>
+      <input
+        className="rounded border mt-16 mb-4 h-10 z-50 bg-white px-2 text-xs text-gray-500"
+        type="text"
+        placeholder="Search"
+        onChange={async (e) => {
+          const { value } = e.currentTarget;
+          if (value === "") {
+            setContent(categoriesAndPosts);
+          } else {
+            // Dynamically load fuse.js
+            const Fuse = (await import("fuse.js")).default;
+            const fuse = new Fuse(categoriesAndPosts);
+            setContent(fuse.search(value));
+          }
+        }}
+      />
+      {_.map(content, (value, key) => renderSideBar(value, key, active, toc))}
+      <ul className={`space-y-2 ${className}`}>{}</ul>
+    </>
   );
 }

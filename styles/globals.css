@@ -13,3 +13,7 @@ body {
   padding-bottom: 64px;
   display: block;
 }
+
+a {
+  @apply text-blue-600;
+}

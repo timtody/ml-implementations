@@ -1,5 +1,5 @@
+import { nanoid } from "nanoid";
 import _ from "lodash";
-import { useState } from "react";
 import { Tag } from "./Tag";
 import tagColors from "../lib/tagColors";
 import MyPopover from "./Popover";
@@ -7,42 +7,34 @@ import MyPopover from "./Popover";
 function renderTags(tags) {
   return tags.map((tag) => {
     return (
-      <Tag key={tag[0]} color={tag[1]}>
+      <Tag key={nanoid()} color={tag[1]}>
         {tag[0]}
       </Tag>
     );
   });
 }
 
-function mapTagsListToColours(taglist) {
-  let tags = _.map(_.split(taglist, ","), _.trim);
-  let tagsWithColors = tags.map((tag) => {
+function mapTagsListToColours(tagList) {
+  let tags = _.map(_.split(tagList, ","), _.trim);
+  return tags.map((tag) => {
     return [tag, tagColors[tag] ? tagColors[tag] : "gray"];
   });
-  return tagsWithColors;
 }
 
 export default function TagPane({ tags, visibleTags = 3 }) {
   let tagsWithColors = mapTagsListToColours(tags);
-  let colorTags = tagsWithColors.filter((e) => e[1] !== "gray");
-  let grayTags = tagsWithColors.filter((e) => e[1] === "gray");
+  let colorTags = tagsWithColors.filter(([_, color]) => color !== "gray");
+  let grayTags = tagsWithColors.filter(([_, color]) => color === "gray");
   let allTags = colorTags.concat(grayTags);
-  let tagComponentList = renderTags(allTags);
-
-  let dt = tagComponentList.splice(0, visibleTags);
-  const [displayTags, setDisplayTags] = useState(dt);
-  const [hiddenTags, setHiddenTags] = useState(tagComponentList);
-  const allTagsCopy = dt.concat(hiddenTags);
+  let displayTags = allTags.slice(0, visibleTags);
 
   return (
     <>
-      {displayTags}
+      {renderTags(displayTags)}
       <MyPopover
-        content={allTagsCopy}
+        content={renderTags(allTags)}
         buttonText={
-          <Tag color="gray" onClick={() => {}}>
-            {`+${hiddenTags.length}`}
-          </Tag>
+          <Tag color="gray">{`+${allTags.length - visibleTags}`}</Tag>
         }
       />
     </>

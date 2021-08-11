@@ -14,15 +14,14 @@ year = "2020"
 
 [bib.colas2020intrinsically]
 title = "Intrinsically motivated goal-conditioned reinforcement learning: a short survey"
-author= "Colas, C{\'e}dric and Karch, Tristan and Sigaud, Olivier and Oudeyer, Pierre-Yves"
+author= "Colas, Cédric and Karch, Tristan and Sigaud, Olivier and Oudeyer, Pierre-Yves"
 journal = "arXiv preprint arXiv:2012.09830"
 year = "2020"
 +++
 
 # Post 3
 
-Theory X holds according to <Cite key="meng2020training" />.
-
+Theory X holds according to <Cite>meng2020training</Cite>.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 ## Dolor Sit Amet
@@ -78,3 +77,5 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 # Deserunt Mollit Anim Id Est
 
 Dui id ornare arcu odio. Leo duis ut diam quam nulla porttitor massa id neque. Elementum curabitur vitae nunc sed velit dignissim. Gravida cum sociis natoque penatibus et magnis. Ut etiam sit amet nisl purus in. Non sodales neque sodales ut etiam sit amet. Malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Sollicitudin aliquam ultrices sagittis orci. Tellus at urna condimentum mattis pellentesque id nibh tortor. Tortor vitae purus faucibus ornare suspendisse sed. Sapien et ligula ullamcorper malesuada.
+
+<References />
